@@ -24,7 +24,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <ContactForm addContact={this.add_contact}/>
+        <ContactForm addContact={(event, contact) => this.add_contact(event, contact)}/>
+        <hr/>
         <ContactList contacts={this.state.contacts}/>
       </div>
     );

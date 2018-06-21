@@ -9,6 +9,7 @@ class ContactForm extends Component {
   send_contact(event) {
     var contact = {...this.state};
     this.props.addContact(event, contact);
+    event.preventDefault();
   }
   
   update(key, event) {
@@ -22,6 +23,8 @@ class ContactForm extends Component {
       <br/>
       Last Name: <input type="text" value={this.state.lname}
   onChange={event => this.update('lname', event)}/>
+      <br/>
+      <button type="submit">Add</button>
     </form>;
   }
 }
