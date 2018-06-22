@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import debounce from 'debounce';
 
 class ContactForm extends Component {
   constructor(props) {
@@ -6,10 +7,9 @@ class ContactForm extends Component {
     this.state = {fname: '', lname: ''};
   }
   
-  send_contact(event) {
+  send_contact() {
     var contact = {...this.state};
-    this.props.addContact(event, contact);
-    event.preventDefault();
+    this.props.addContact(null, contact);
   }
   
   update(key, event) {
@@ -17,7 +17,11 @@ class ContactForm extends Component {
   }
   
   render() {
-    return <form onSubmit={(e) => this.send_contact(e)}>
+    var send_contact = debounce(() => {
+      this.send_contact();
+    }, 1000, false);
+    
+    return <form onSubmit={(e) => {e.preventDefault(); send_contact()}}>
       First Name: <input type="text" value={this.state.fname}
   onChange={event => this.update('fname', event)}/>
       <br/>

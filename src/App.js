@@ -26,7 +26,7 @@ class App extends Component {
       <div className="App">
         <ContactForm addContact={(event, contact) => this.add_contact(event, contact)}/>
         <hr/>
-        <ContactList contacts={this.state.contacts}/>
+        <ContactList contacts={this.state.contacts} hello="Narf"/>
       </div>
     );
   }
