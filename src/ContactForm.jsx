@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import debounce from 'debounce';
 
+import {addContact} from './actions.js';
+import { connect } from 'react-redux';
+
 class ContactForm extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +12,7 @@ class ContactForm extends Component {
   
   send_contact() {
     var contact = {...this.state};
-    this.props.addContact(null, contact);
+    this.props.onSubmit(contact);
   }
   
   update(key, event) {
@@ -33,4 +36,22 @@ class ContactForm extends Component {
   }
 }
 
-export default ContactForm;
+function mapStateToProps (state) {
+  return {
+    contacts: state.contacts
+  };
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    onSubmit: function (data) {
+      dispatch(addContact(data));
+    }
+  };
+}
+
+var ConnectedForm = connect(
+  mapStateToProps, mapDispatchToProps
+)(ContactForm);
+
+export default ConnectedForm;

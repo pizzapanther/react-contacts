@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class ContactList extends Component {
   constructor(props) {
@@ -45,4 +46,12 @@ class ContactList extends Component {
   }
 }
 
-export default ContactList;
+function mapStateToProps (state) {
+  return {
+    contacts: state.contacts
+  };
+}
+
+var ConnectedList = connect(mapStateToProps)(ContactList);
+
+export default ConnectedList;
